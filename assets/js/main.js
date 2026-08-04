@@ -1,7 +1,47 @@
-const p=document.getElementById('particles');for(let i=0;i<75;i++){const s=document.createElement('span');s.className='particle';s.style.left=Math.random()*100+'%';s.style.animationDuration=(8+Math.random()*18)+'s';s.style.animationDelay=(-Math.random()*18)+'s';s.style.opacity=.2+Math.random()*.75;p.appendChild(s)}
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.16});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-let step=0;const qs=[...document.querySelectorAll('.q')],bar=document.getElementById('bar'),prev=document.getElementById('prev'),next=document.getElementById('next'),submit=document.getElementById('submit');const answers={};
-function show(){qs.forEach((q,i)=>q.classList.toggle('active',i===step));bar.style.width=((step+1)/qs.length*100)+'%';prev.style.visibility=step===0?'hidden':'visible';next.classList.toggle('hidden',step===qs.length-1);submit.classList.toggle('hidden',step!==qs.length-1)}show();
-document.querySelectorAll('.choices').forEach(group=>{group.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{if(!group.classList.contains('multi'))group.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));c.classList.toggle('selected');const vals=[...group.querySelectorAll('.selected strong')].map(x=>x.textContent);answers[group.dataset.name]=vals.join(', ');}))});
-next.onclick=()=>{if(step<qs.length-1){step++;show();}};prev.onclick=()=>{if(step>0){step--;show();}};
-document.getElementById('stepForm').addEventListener('submit',e=>{e.preventDefault();const fd=new FormData(e.target);for(const [k,v] of fd.entries())answers[k]=v;let msg='NOIRENZA B2B APPLICATION%0A%0A';Object.entries(answers).forEach(([k,v])=>{msg+=encodeURIComponent(k+': '+v)+'%0A'});window.open('https://wa.me/923340252093?text='+msg,'_blank');});
+const p=document.getElementById('particles');
+for(let i=0;i<75;i++){
+  const s=document.createElement('span');
+  s.className='particle';
+  s.style.left=Math.random()*100+'%';
+  s.style.animationDuration=(8+Math.random()*18)+'s';
+  s.style.animationDelay=(-Math.random()*18)+'s';
+  s.style.opacity=.2+Math.random()*.75;
+  p.appendChild(s);
+}
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.16});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+let step=0;
+const qs=[...document.querySelectorAll('.q')],bar=document.getElementById('bar'),prev=document.getElementById('prev'),next=document.getElementById('next'),submit=document.getElementById('submit');
+const answers={};
+
+function show(){
+  qs.forEach((q,i)=>q.classList.toggle('active',i===step));
+  bar.style.width=((step+1)/qs.length*100)+'%';
+  prev.style.visibility=step===0?'hidden':'visible';
+  next.classList.toggle('hidden',step===qs.length-1);
+  submit.classList.toggle('hidden',step!==qs.length-1);
+}
+show();
+
+document.querySelectorAll('.choices').forEach(group=>{
+  group.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    if(!group.classList.contains('multi'))group.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
+    c.classList.toggle('selected');
+    const vals=[...group.querySelectorAll('.selected strong')].map(x=>x.textContent);
+    answers[group.dataset.name]=vals.join(', ');
+  }));
+});
+
+next.onclick=()=>{if(step<qs.length-1){step++;show();}};
+prev.onclick=()=>{if(step>0){step--;show();}};
+
+document.getElementById('stepForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  for(const [k,v] of fd.entries())answers[k]=v;
+  let msg='NOIRENZA B2B APPLICATION%0A%0A';
+  Object.entries(answers).forEach(([k,v])=>{msg+=encodeURIComponent(k+': '+v)+'%0A'});
+  window.open('https://wa.me/923340252093?text='+msg,'_blank');
+});
