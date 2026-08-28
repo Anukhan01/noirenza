@@ -35,14 +35,97 @@ body::after{content:"";position:fixed;inset:0;z-index:-2;opacity:.28;
 .particles{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .particle{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold2);box-shadow:0 0 14px var(--gold);animation:float linear infinite;opacity:.75}
 @keyframes float{from{transform:translateY(105vh) scale(.6)}to{transform:translateY(-10vh) scale(1.4)}}
-
-/* NAV */
-.nav{position:fixed;inset:0 0 auto 0;z-index:50;height:86px;padding:16px 5vw;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(0,0,0,.78),transparent);backdrop-filter:blur(8px);border-bottom:1px solid rgba(215,173,84,.08)}
+ 
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: 86px;
+  padding: 0 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(0,0,0,.78), transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(215,173,84,.08);
+  width: 100%;
+}
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: var(--muted, rgba(247,239,224,.68));
+}
+.navlinks > a, 
+.navlinks .dropdown-btn {
+  color: var(--gold2, #ffe4a1);
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+}
+.dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 9, 8, 0.95);
+  min-width: 160px;
+  box-shadow: 0 15px 35px rgba(0,0,0,.6);
+  border: 1px solid rgba(215,173,84,.22);
+  border-radius: 6px;
+  padding: 8px 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+.dropdown-content a {
+  color: var(--text, #f7efe0);
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  white-space: nowrap;
+}
+.dropdown-content a:hover {
+  background: rgba(215,173,84,.12);
+  color: var(--gold2, #ffe4a1);
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 .brand{display:flex;align-items:center;gap:14px}
 .brand img{width:58px;height:58px;object-fit:cover;border-radius:12px}
 .brand span{font-family:var(--fontHead);letter-spacing:.16em;font-size:18px;color:var(--gold2)}
 .navlinks{display:flex;gap:26px;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
 .navlinks a{color:var(--gold2)}
+.dropdown{position:relative;display:inline-block}
+.dropdown-btn{background:none;border:none;color:var(--gold2);font-size:11px;text-transform:uppercase;letter-spacing:.18em;cursor:pointer;padding:8px 12px;display:flex;align-items:center;gap:6px;transition:.3s}
+.dropdown-btn:hover{color:var(--gold2)}
+.dropdown-btn::after{content:'▼';font-size:8px;transition:.3s}
+.dropdown:hover .dropdown-btn::after{transform:rotate(180deg)}
+.dropdown-content{display:none;position:absolute;top:100%;left:0;background:rgba(10,9,8,.95);min-width:180px;border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5);z-index:100;padding:8px 0;backdrop-filter:blur(10px)}
+.dropdown:hover .dropdown-content{display:block}
+.dropdown-content a{color:var(--text);padding:10px 16px;text-decoration:none;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;transition:.3s}
+.dropdown-content a:hover{background:rgba(215,173,84,.1);color:var(--gold2);padding-left:20px}
 .navcta{padding:13px 18px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(135deg,rgba(215,173,84,.15),rgba(255,255,255,.03));font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold2)}
 
 /* HERO */
@@ -134,8 +217,6 @@ select option{background:#070707}
 
 .reveal{opacity:0;transform:translateY(35px);transition:1s ease}
 .reveal.in{opacity:1;transform:translateY(0)}
-
-/* ===== WHATSAPP BUTTONS (gold theme, matches brand) ===== */
 .wa-btn{
   background:linear-gradient(135deg,var(--gold2),var(--gold),#9c6d21)!important;
   color:#120d04!important;
@@ -146,7 +227,6 @@ select option{background:#070707}
 .wa-btn.small{padding:10px 5px;font-size:11px;margin-top:14px; border-radius:50px}
 a.navcta.wa-btn{padding:13px 18px}
 
-/* Floating WhatsApp button, always visible */
 .wa-float{
   position:fixed;
   right:26px;
@@ -163,6 +243,10 @@ a.navcta.wa-btn{padding:13px 18px}
   animation:wa-pulse 2.4s ease-in-out infinite;
   border:1px solid rgba(255,228,161,.6);
 }
+.next-button.btnNext.hz-iconset-2.corner-right.next-show {
+    background-color: #ffffff;
+    border-radius: 50px;
+}
 .wa-float svg{width:30px;height:30px;fill:#120d04}
 @keyframes wa-pulse{
   0%,100%{box-shadow:0 10px 34px rgba(215,173,84,.45),0 0 0 4px rgba(215,173,84,.14)}
@@ -174,6 +258,8 @@ a.navcta.wa-btn{padding:13px 18px}
   .hero-card{min-height:560px}
   .offer-grid,.process,.foot-grid{grid-template-columns:1fr 1fr}
   .navlinks{display:none}
+  .dropdown-content{position:static;background:rgba(10,9,8,.98);min-width:100%;border:none;border-radius:0;padding:12px 0;margin-top:8px}
+  .dropdown-btn{width:100%;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,.02);border-radius:8px}
 }
 @media(max-width:640px){
   .hero{padding-top:110px}
