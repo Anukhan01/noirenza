@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noirenza — Catalogue</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#030303;
+  --gold:#d7ad54;
+  --gold2:#ffe4a1;
+  --text:#f7efe0;
+  --muted:rgba(247,239,224,.68);
+  --line:rgba(215,173,84,.22);
+  --fontHead:'Cinzel',serif;
+  --font:'Inter',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%; width:100%; overflow-x:hidden;}
+body{
+  font-family:var(--font);
+  background:var(--black);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(circle at 80% 5%,rgba(215,173,84,.14),transparent 32%),
+    radial-gradient(circle at 20% 20%,rgba(255,214,130,.06),transparent 28%),
+    #000;
+}
+
+/* ---- Navigation ---- */
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:76px;
+  padding:0 5vw;
+  border-bottom:1px solid var(--line);
+  background:rgba(3,3,3,.8);
+  backdrop-filter:blur(10px);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:40px;height:40px;object-fit:cover;border-radius:10px}
+.brand span{font-family:var(--fontHead);letter-spacing:.16em;font-size:15px;color:var(--gold2)}
+.navlinks{display:flex;align-items:center;gap:20px;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
+.navlinks a{color:var(--gold2);text-decoration:none}
+
+/* Dropdown styling */
+.dropdown{position:relative;display:inline-block;}
+.dropdown-btn{background:none;border:none;color:var(--gold2);font-family:var(--font);font-size:11px;text-transform:uppercase;letter-spacing:.18em;cursor:pointer;padding:0;}
+.dropdown-content{display:none;position:absolute;top:100%;left:0;background:#0a0908;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.5);border:1px solid var(--line);border-radius:4px;z-index:20;padding:8px 0;}
+.dropdown-content a{color:var(--text);padding:8px 16px;display:block;font-size:10px;text-transform:uppercase;letter-spacing:.12em;}
+.dropdown-content a:hover{background:rgba(215,173,84,.1);color:var(--gold2);}
+.dropdown:hover .dropdown-content{display:block;}
+
+.wa-btn{
+  padding:10px 16px;border:1px solid transparent;border-radius:999px;
+  background:linear-gradient(135deg,var(--gold2),var(--gold),#9c6d21);
+  color:#120d04!important;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+  text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  box-shadow:0 8px 30px rgba(215,173,84,.25);
+  white-space:nowrap;
+}
+
+/* ---- Page heading ---- */
+.head{ text-align:center; padding:14px 5vw 2px; flex:0 0 auto; }
+.head .kicker{ font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:2px; }
+.head h1{ font-family:var(--fontHead); font-size:clamp(18px, 3vw, 24px); color:var(--gold2); letter-spacing:.04em; }
+
+/* ---- Stage & Embed Container ---- */
+.stage{
+  flex:1 1 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 2vw 16px;
+  width:100%;
+}
+.catalogue-embed{
+  position:relative;
+  width:96%;
+  max-width:1600px;
+  height:100%;
+  max-height:88vh;
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:0 30px 70px rgba(0,0,0,.6), inset 0 0 0 1px rgba(0,0,0,.3);
+  background:#0a0908;
+}
+.catalogue-embed::before{
+  content:"";
+  position:absolute; inset:0;
+  border-radius:8px;
+  box-shadow:inset 0 0 0 1px rgba(215,173,84,.15);
+  pointer-events:none;
+  z-index:2;
+}
+.catalogue-embed iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+  position:relative;
+  z-index:1;
+}
+.loading{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:10px;
+  color:var(--muted); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+  z-index:0;
+}
+.loading .spinner{
+  width:26px; height:26px; border-radius:50%;
+  border:2px solid rgba(215,173,84,.2); border-top-color:var(--gold);
+  animation:spin 1s linear infinite;
+}
+
+.next-button.btnNext.hz-iconset-2.corner-right.next-show {
+    background-color: #ffffff !important;
+    border-radius: 50px !important;
+}
+
+
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+.watermark-cover{
+  position:absolute;
+  left:0; bottom:0;
+  width:15vw;
+  max-width:252px;
+  height:100%;
+  background:#0a0908;
+  border:none;
+  z-index:3;
+  pointer-events:none;
+}
+.watermark-cover-right{
+  position:absolute;
+  right:0; bottom:0;
+  width:15vw;
+  max-width:255px;
+  height:100%;
+  background:#0a0908;
+  border:none;
+  z-index:3;
+  pointer-events:none;
+}
+
+/* ---- Responsive Adjustments ---- */
+@media(max-width:900px){
+  .navlinks{ display:none; }
+}
+
+@media(max-width:600px){
+  .nav{ height:64px; padding:0 4vw; }
+  .brand img{ width:34px; height:34px; }
+  .brand span{ font-size:13px; letter-spacing:.12em; }
+  .wa-btn{ padding:8px 12px; font-size:10px; }
+  .head{ padding:8px 4vw 2px; }
+  .stage{ padding:4px 1vw 10px; align-items:flex-start; }
+  .catalogue-embed{ 
+    width:98%;
+    height:82vh;
+    max-height:none;
+    border-radius:6px;
+  }
+  .watermark-cover, .watermark-cover-right {
+    display:none;
+  }
+}
+
+@media(max-height:600px) and (orientation:landscape){
+  .nav{ height:50px; }
+  .head{ display:none; }
+  .stage{ padding:4px 1vw; }
+  .catalogue-embed{ height:92vh; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="index.html">
+    <img src="assets/images/image-01.webp" alt="Noirenza logo">
+    <span>NOIRENZA</span>
+  </a>
+  <div class="navlinks">
+    <a href="index.html#models">Models</a>
+    <a href="index.html#reseller">Reseller</a>
+    <a href="index.html#custom">Private Label</a>
+    <div class="dropdown">
+      <button class="dropdown-btn">Catalogue</button>
+      <div class="dropdown-content">
+        <a href="30ml-bottles.html">30ml Bottles</a>
+        <a href="50ml-bottles.html">50ml Bottles</a>
+        <a href="testers.html">Testers</a>
+        <a href="boxes.html">Boxes</a>
+      </div>
+    </div>
+    <a href="index.html#application">Apply</a>
+  </div>
+  <a class="navcta wa-btn" href="https://wa.me/923340252093?text=Hi%20Noirenza%2C%20I%20want%20to%20start%20my%20own%20perfume%20brand." target="_blank" rel="noopener">Chat on WhatsApp</a>
+</nav>
+
+<div class="head">
+  <p class="kicker">Noirenza</p>
+  <h1>30ml Bottles Catalogue</h1>
+</div>
+
+<div class="stage">
+  <div class="catalogue-embed">
+    <div class="loading" id="loadingMsg">
+      <div class="spinner"></div>
+      Loading Catalogue…
+    </div>
+    <iframe
+      src="https://heyzine.com/flip-book/8b6680b988.html"
+      title="Noirenza Catalogue"
+      allow="fullscreen"
+      allowfullscreen
+      loading="lazy"
+      onload="document.getElementById('loadingMsg').style.display='none'">
+    </iframe>
+    <div class="watermark-cover" aria-hidden="true"></div>
+    <div class="watermark-cover-right" aria-hidden="true"></div>
+  </div>
+</div>
+
+</body>
+</html>
